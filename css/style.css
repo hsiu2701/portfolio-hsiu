@@ -141,16 +141,23 @@ table {
 .header-background {
   border-bottom: #f1f1f1 solid 1px;
   background-color: #ffffff;
-  padding: 32px 0px 32px 0px;
-  position: relative;
+  /* padding: 32px 0px 32px 0px; */
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+}
+.container {
+  max-width: 1296px;
+  margin: 0 auto;
 }
 .header {
-  max-width: 1296px;
   display: flex;
-  justify-content: space-between;
-  margin: 0 auto;
-  padding-right: 408px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 28px 8px 28px 8px;
 }
+/* logo */
 .header h1 a {
   display: block;
   width: 90px;
@@ -159,21 +166,12 @@ table {
   text-indent: 101%;
   overflow: hidden;
   white-space: nowrap;
+  margin-right: 318px;
 }
+/* 選單並排 */
 .header-menu {
-  width: 480px;
   display: flex;
-  justify-content: space-between;
-}
-.menu-b {
-  position: absolute;
-  right: 312px;
-  top: 35px;
-  display: none;
-}
-.menu-b img {
-  width: 40px;
-  height: 40px;
+  gap: 40px;
 }
 
 .header-menu li :hover {
@@ -196,35 +194,73 @@ table {
   line-height: 24px;
   color: #000000;
 }
-@media (max-width: 1029px) {
-  .header-menu {
-    display: none;
-  }
-  .header {
-    padding-right: 0px;
-  }
-  .menu-b {
-    display: block;
-    top: 30px;
-    right: 12px;
+.menu-btn {
+  display: none;
+  cursor: pointer;
+}
+.menu-btn .material-icons {
+  display: none;
+}
+/* :checked 點擊狀態 */
+/* input的.menu-con 被點擊後menu-btn 裡面的.open<選單> 會關起來 */
+.menu-con:checked + .menu-btn .open {
+  display: none;
+}
+/* input的.menu-con 被點擊後menu-btn 裡面的.close <X> 會開起來 */
+.menu-con:checked + .menu-btn .close {
+  display: inline;
+}
+/* input的.menu-con 還沒被點擊.open<選單> 會開起來 */
+.menu-con:not(:checked) + .menu-btn .open {
+  display: inline;
+}
+/* input的.menu-con 還沒被點擊close<X> 會關起來 */
+.menu-con:not(:checked) + .menu-btn .close {
+  display: none;
+}
+/* 勾勾隱藏 */
+.menu-con {
+  display: none;
+}
+
+@media (max-width: 1296px) {
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
   }
 }
 
-@media (max-width: 767px) {
-  .header-background {
-    padding: 8px 12px 8px 12px;
+@media (max-width: 992px) {
+  .header {
+    justify-content: space-between;
   }
+  .menu-btn {
+    display: block;
+  }
+  /* 平板時先藏起MENU的內容 */
+  .header-menu {
+    display: none;
+  }
+  /*  ~ 搜尋(~這是指同層去找到相對應的 .menu   +是指同層的下一個對應的 .menu).menu-con同層的.menu開啟樣式 */
+  /* input的.menu-con 被點擊後menu的設定樣式 */
+  .menu-con:checked ~ .header-menu {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+  }
+}
 
-  .menu-b {
-    top: 10px;
-    right: 12px;
+@media (max-width: 992px) {
+  .header h1 a {
+    margin-right: 0px;
   }
 }
 
 /* 標題 */
 .main {
   background-color: #fafafa;
-  padding: 80px 0px 80px 0px;
+  padding: 176px 0px 80px 0px;
   margin: 0 auto;
 }
 .container {
